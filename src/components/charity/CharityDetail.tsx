@@ -14,7 +14,7 @@ const CharityDetail: React.FC<CharityDetailProps> = ({ charity, isLoading }) => 
 
   if (isLoading) {
     return (
-      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden animate-pulse p-6">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md overflow-hidden animate-pulse p-6" aria-busy="true" aria-live="polite" role="status">
         <div className="h-64 bg-gray-300 rounded-lg"></div>
         <div className="mt-6 space-y-4">
           <div className="h-8 bg-gray-300 rounded w-1/2"></div>
@@ -33,7 +33,7 @@ const CharityDetail: React.FC<CharityDetailProps> = ({ charity, isLoading }) => 
 
   if (!charity) {
     return (
-      <div className="text-center py-10">
+      <div className="text-center py-10" role="alert" aria-live="polite">
         <p className="text-gray-600">Charity not found.</p>
       </div>
     );
@@ -52,7 +52,7 @@ const CharityDetail: React.FC<CharityDetailProps> = ({ charity, isLoading }) => 
             <div className="flex items-center space-x-2">
               <h1 className="text-2xl md:text-3xl font-bold text-white">{charity.name}</h1>
               {charity.verified && (
-                <BadgeCheck className="h-6 w-6 text-teal-400" title="Verified Charity" />
+                <BadgeCheck className="h-6 w-6 text-teal-400" />
               )}
             </div>
             <p className="text-white/90 mt-2">{charity.description}</p>
