@@ -1,72 +1,152 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Charity } from '../../types/charity';
-import { BadgeCheck, ExternalLink } from 'lucide-react';
+import { BadgeCheck, ExternalLink, Heart } from 'lucide-react';
 
 interface CharityCardProps {
   charity: Charity;
+  index?: number;
 }
 
-const CharityCard: React.FC<CharityCardProps> = ({ charity }) => {
+const CharityCard: React.FC<CharityCardProps> = ({ charity, index = 0 }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [imageLoaded, setImageLoaded] = useState(false);
+
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden transform transition duration-300 hover:shadow-xl hover:-translate-y-1">
+    <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.1,
+        ease: "easeOut"
+      }}
+      whileHover={{
+        y: -8,
+        transition: { duration: 0.3, ease: "easeOut" }
+      }}
+      className="card-interactive overflow-hidden group"
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="h-48 relative overflow-hidden">
-        <img 
-          src={charity.imageUrl} 
-          alt={charity.name} 
-          className="w-full h-full object-cover" 
+        <motion.img
+          src={charity.imageUrl}
+          alt={charity.name}
+          className="w-full h-full object-cover"
+          initial={{ scale: 1.1, opacity: 0 }}
+          animate={{
+            scale: imageLoaded ? (isHovered ? 1.1 : 1) : 1.1,
+            opacity: imageLoaded ? 1 : 0
+          }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          onLoad={() => setImageLoaded(true)}
         />
+
+        {/* Overlay gradient */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isHovered ? 1 : 0 }}
+          transition={{ duration: 0.3 }}
+        />
+
         {charity.featured && (
-          <div className="absolute top-2 right-2 bg-amber-500 text-white text-xs font-semibold px-2 py-1 rounded">
-            Featured
-          </div>
+          <motion.div
+            className="absolute top-3 right-3 bg-orange text-white text-xs font-semibold px-3 py-1 rounded-full shadow-lg"
+            initial={{ scale: 0, rotate: -180 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ delay: 0.3, duration: 0.5, type: "spring" }}
+          >
+            ⭐ Featured
+          </motion.div>
         )}
+
+        {/* Floating heart animation */}
+        <motion.div
+          className="absolute top-3 left-3 opacity-0 group-hover:opacity-100"
+          initial={{ scale: 0, y: 10 }}
+          animate={{
+            scale: isHovered ? 1 : 0,
+            y: isHovered ? 0 : 10
+          }}
+          transition={{ duration: 0.3, delay: 0.1 }}
+        >
+          <Heart className="h-6 w-6 text-white fill-red-500 text-red-500" />
+        </motion.div>
       </div>
-      
+
       <div className="p-5">
-        <div className="flex items-center space-x-1 mb-2">
-          <h3 className="text-lg font-semibold text-gray-900">{charity.name}</h3>
+        <div className="flex items-center justify-between mb-3">
+          <motion.h3
+            className="text-lg font-bold text-text-dark"
+            initial={{ x: -20, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+          >
+            {charity.name}
+          </motion.h3>
           {charity.verified && (
-            <BadgeCheck className="h-5 w-5 text-teal-500" title="Verified Charity" />
+            <motion.div
+              initial={{ scale: 0, rotate: -180 }}
+              animate={{ scale: 1, rotate: 0 }}
+              transition={{ delay: 0.4, duration: 0.5, type: "spring" }}
+              whileHover={{ scale: 1.2, rotate: 360 }}
+            >
+              <BadgeCheck className="h-5 w-5 text-orange-red" title="Verified Charity" />
+            </motion.div>
           )}
         </div>
-        
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2">{charity.description}</p>
-        
-        <div className="grid grid-cols-2 gap-2 mb-4 text-sm">
-          <div>
-            <span className="text-gray-500">Category:</span>
-            <p className="font-medium text-gray-800">{charity.category}</p>
-          </div>
-          <div>
-            <span className="text-gray-500">Donors:</span>
-            <p className="font-medium text-gray-800">{charity.donorCount}</p>
-          </div>
-          <div className="col-span-2">
-            <span className="text-gray-500">Total Donations:</span>
-            <p className="font-medium text-gray-800">{charity.totalDonations} STX</p>
-          </div>
-        </div>
-        
-        <div className="flex justify-between">
-          <Link 
+
+        <motion.p
+          className="text-sm text-charcoal line-clamp-3 mb-4"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3, duration: 0.5 }}
+        >
+          {charity.description}
+        </motion.p>
+
+        <motion.div
+          className="flex justify-between items-center"
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.5 }}
+        >
+          <Link
             to={`/charities/${charity.id}`}
-            className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition duration-150"
+            className="btn-primary text-sm group/btn relative overflow-hidden"
           >
-            View Details
+            <motion.span
+              className="relative z-10"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Donate Now
+            </motion.span>
           </Link>
-          
-          <a 
-            href={charity.website} 
-            target="_blank" 
+
+          <motion.a
+            href={charity.website}
+            target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center text-gray-500 hover:text-indigo-600"
+            className="text-charcoal hover:text-orange-red transition-colors flex items-center text-sm group/link"
+            whileHover={{ x: 5 }}
+            transition={{ duration: 0.2 }}
           >
-            Website <ExternalLink className="ml-1 h-4 w-4" />
-          </a>
-        </div>
+            Website
+            <motion.div
+              className="ml-1"
+              animate={{ x: isHovered ? 3 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ExternalLink className="h-3 w-3" />
+            </motion.div>
+          </motion.a>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

@@ -1,6 +1,9 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { Charity } from '../../types/charity';
 import CharityCard from './CharityCard';
+import { SkeletonCard } from '../ui/Skeleton';
+import { Heart } from 'lucide-react';
 
 interface CharityListProps {
   charities: Charity[];
@@ -12,22 +15,14 @@ const CharityList: React.FC<CharityListProps> = ({ charities, isLoading }) => {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" aria-busy="true" aria-live="polite" role="status">
         {[...Array(6)].map((_, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md overflow-hidden animate-pulse" aria-hidden="true">
-            <div className="h-48 bg-gray-300"></div>
-            <div className="p-5 space-y-3">
-              <div className="h-6 bg-gray-300 rounded w-3/4"></div>
-              <div className="h-4 bg-gray-300 rounded w-full"></div>
-              <div className="h-4 bg-gray-300 rounded w-full"></div>
-              <div className="grid grid-cols-2 gap-2">
-                <div className="h-8 bg-gray-300 rounded"></div>
-                <div className="h-8 bg-gray-300 rounded"></div>
-              </div>
-              <div className="flex justify-between pt-2">
-                <div className="h-8 bg-gray-300 rounded w-24"></div>
-                <div className="h-8 bg-gray-300 rounded w-20"></div>
-              </div>
-            </div>
-          </div>
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: index * 0.1, duration: 0.5 }}
+          >
+            <SkeletonCard />
+          </motion.div>
         ))}
       </div>
     );
@@ -35,17 +30,39 @@ const CharityList: React.FC<CharityListProps> = ({ charities, isLoading }) => {
 
   if (charities.length === 0) {
     return (
-      <div className="text-center py-10" role="alert" aria-live="polite">
-        <p className="text-gray-600">No charities found. Try adjusting your search or filters.</p>
-      </div>
+      <motion.div
+        className="text-center py-16"
+        role="alert"
+        aria-live="polite"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+      >
+        <motion.div
+          className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6"
+          animate={{
+            scale: [1, 1.1, 1],
+            rotate: [0, 5, -5, 0]
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+        >
+          <Heart className="h-8 w-8 text-gray-400" />
+        </motion.div>
+        <h3 className="text-xl font-semibold text-gray-700 mb-2">No charities found</h3>
+        <p className="text-gray-500">Try adjusting your search or filters to find more charities.</p>
+      </motion.div>
     );
   }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" role="list">
-      {charities.map(charity => (
+      {charities.map((charity, index) => (
         <div key={charity.id} role="listitem">
-          <CharityCard charity={charity} />
+          <CharityCard charity={charity} index={index} />
         </div>
       ))}
     </div>
