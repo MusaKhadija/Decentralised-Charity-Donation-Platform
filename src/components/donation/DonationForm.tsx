@@ -55,7 +55,7 @@ const DonationForm: React.FC<DonationFormProps> = ({ charity }) => {
   return (
     <div>
       {showSuccess ? (
-        <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center">
+        <div className="bg-green-50 border border-green-200 rounded-lg p-6 text-center" role="status" aria-live="polite">
           <div className="flex justify-center mb-4">
             <div className="rounded-full bg-green-100 p-3">
               <svg className="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -75,7 +75,7 @@ const DonationForm: React.FC<DonationFormProps> = ({ charity }) => {
           </button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6" aria-label="Donation form">
           <div>
             <label htmlFor="amount" className="block text-sm font-medium text-gray-700 mb-1">
               Donation Amount (STX)
@@ -203,11 +203,15 @@ const DonationForm: React.FC<DonationFormProps> = ({ charity }) => {
             <button
               type="submit"
               disabled={isLoading || amount <= 0}
+              aria-busy={isLoading}
+              aria-disabled={isLoading || amount <= 0}
               className="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition duration-150 disabled:bg-indigo-400 disabled:cursor-not-allowed"
             >
               {isLoading ? 'Processing...' : `Donate ${amount} STX`}
             </button>
           </div>
+          {/* Placeholder for error feedback */}
+          {/* {error && <div className="text-red-600 mt-2" role="alert">{error}</div>} */}
         </form>
       )}
     </div>

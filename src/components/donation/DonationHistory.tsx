@@ -21,9 +21,9 @@ const DonationHistory: React.FC<DonationHistoryProps> = ({ donations, isLoading 
 
   if (isLoading) {
     return (
-      <div className="space-y-4">
+      <div className="space-y-4" aria-busy="true" aria-live="polite" role="status">
         {[...Array(3)].map((_, index) => (
-          <div key={index} className="bg-white rounded-lg shadow-md p-4 animate-pulse">
+          <div key={index} className="bg-white rounded-lg shadow-md p-4 animate-pulse" aria-hidden="true">
             <div className="flex justify-between">
               <div className="w-1/3">
                 <div className="h-5 bg-gray-300 rounded w-3/4"></div>
@@ -43,16 +43,16 @@ const DonationHistory: React.FC<DonationHistoryProps> = ({ donations, isLoading 
 
   if (donations.length === 0) {
     return (
-      <div className="text-center py-8">
-        <p className="text-gray-600">No donations found.</p>
+      <div className="text-center py-8" role="alert" aria-live="polite">
+        <p className="text-gray-600">No donations found. Your donation history will appear here after your first contribution.</p>
       </div>
     );
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" role="list">
       {donations.map((donation) => (
-        <div key={donation.id} className="bg-white rounded-lg shadow-md p-4 transition duration-300 hover:shadow-lg">
+        <div key={donation.id} role="listitem" className="bg-white rounded-lg shadow-md p-4 transition duration-300 hover:shadow-lg">
           <div className="flex flex-col md:flex-row md:justify-between md:items-center">
             <div>
               <h3 className="font-medium text-gray-900">{donation.charityName}</h3>
