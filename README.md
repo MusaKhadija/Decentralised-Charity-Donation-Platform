@@ -87,6 +87,16 @@ TypeScript           →  Static type checking
 Git                  →  Version control
 ```
 
+### **Testing Infrastructure** 🧪
+```
+Vitest               →  Fast, Vite-native testing framework
+React Testing Library →  Component testing with accessibility focus
+Playwright           →  Cross-browser E2E testing
+MSW                  →  API mocking for integration tests
+Coverage Reporting   →  80%+ coverage requirements
+CI/CD Pipeline       →  Automated testing and deployment
+```
+
 ### **Deployment & Performance**
 ```
 Vercel/Netlify       →  Edge deployment and CDN
@@ -120,12 +130,18 @@ Ensure you have the following installed:
    npm install
    ```
 
-3. **Start development server**
+3. **Run tests** (Recommended first step)
+   ```bash
+   npm run test:run
+   npm run test:coverage
+   ```
+
+4. **Start development server**
    ```bash
    npm run dev
    ```
 
-4. **Open your browser**
+5. **Open your browser**
    Navigate to [http://localhost:5173](http://localhost:5173)
 
 ### Environment Setup
@@ -230,6 +246,13 @@ Our platform showcases **8 real, verified charitable organizations(testnet)**:
 | `npm run build` | Build optimized production bundle |
 | `npm run preview` | Preview production build locally |
 | `npm run lint` | Run ESLint for code quality checks |
+| **Testing Commands** | |
+| `npm run test` | Run tests in watch mode |
+| `npm run test:run` | Run all tests once |
+| `npm run test:coverage` | Generate coverage report |
+| `npm run test:ui` | Run tests with UI interface |
+| `npm run test:e2e` | Run end-to-end tests |
+| **Deployment Commands** | |
 | `npm run deploy:vercel` | Deploy to Vercel platform |
 | `npm run deploy:netlify` | Deploy to Netlify platform |
 | `npm run build:analyze` | Analyze bundle size and dependencies |
