@@ -1,4 +1,4 @@
-# 🌟 GiveChain - Blockchain Charity Donation Platform
+#  GiveChain - Blockchain Charity Donation Platform
 
 <div align="center">
 
@@ -6,7 +6,7 @@
 
 **Revolutionizing charitable giving through blockchain technology**
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-success?style=for-the-badge)](https://givechain-charity-platform.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-success?style=for-the-badge)](https://givechain.netlify.app)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/khadijamusa/Decentralised-Charity-Donation-Platform)
 [![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)](LICENSE)
 
