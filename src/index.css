@@ -1,3 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Open+Sans:wght@400;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
+@tailwind utilities;
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-opensans font-bold;
+  }
+  
+  body {
+    @apply font-inter text-text-dark bg-bg-light;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-opacity-50;
+  }
+  
+  .btn-primary {
+    @apply btn bg-orange-red text-white hover:bg-opacity-90 focus:ring-orange-red;
+  }
+  
+  .btn-secondary {
+    @apply btn bg-white text-text-dark border border-bg-light hover:bg-bg-blue focus:ring-bg-blue;
+  }
+  
+  .card {
+    @apply bg-white rounded-xl shadow-card hover:shadow-card-hover transition-all duration-300;
+  }
 @tailwind utilities;
