@@ -4,7 +4,7 @@
 
 ![GiveChain Logo](https://img.shields.io/badge/GiveChain-Blockchain%20Charity-orange?style=for-the-badge&logo=heart)
 
-**Revolutionizing charitable giving through blockchain technology**
+**Uniting people and uplifting lives with the trust and transparency of blockchain.**
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-Visit%20Site-success?style=for-the-badge)](https://givechain.netlify.app)
 [![GitHub](https://img.shields.io/badge/GitHub-Repository-black?style=for-the-badge&logo=github)](https://github.com/khadijamusa/Decentralised-Charity-Donation-Platform)
@@ -20,7 +20,7 @@
 
 ### 🎯 Mission Statement
 
-*"Connecting hearts, changing lives, one blockchain transaction at a time."*
+*"Uniting people and uplifting lives with the trust and transparency of blockchain."*
 
 We believe that every donation should be traceable, every charity should be verified, and every donor should have complete confidence that their contribution is making a real difference in the world.
 
